@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Sparkles, Brain, Calendar, Heart, Trophy, Zap, Sun, Moon, Target, TrendingUp, Bell, Crown } from "lucide-react";
+import { Sparkles, Brain, Calendar, Heart, Trophy, Zap, Sun, Moon, Target, TrendingUp, Bell, Crown, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -78,6 +78,15 @@ export default function UpNowApp() {
     }
   };
 
+  const handleAssinarPro = () => {
+    // Redireciona para página de checkout
+    window.location.href = "/checkout";
+  };
+
+  const handleContinuarGratuito = () => {
+    setShowUpgrade(false);
+  };
+
   if (showRitual) {
     return <RitualMatinal onComplete={handleRitualCompleto} />;
   }
@@ -134,75 +143,147 @@ export default function UpNowApp() {
         </div>
       </header>
 
-      {/* Modal de Upgrade */}
+      {/* Modal de Upgrade - CORRIGIDO COM SCROLL */}
       {showUpgrade && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <Card className="bg-gradient-to-br from-slate-900 to-purple-900 border-yellow-500/30 max-w-lg w-full p-8 relative">
-            <button 
-              onClick={() => setShowUpgrade(false)}
-              className="absolute top-4 right-4 text-purple-300 hover:text-white"
-            >
-              ✕
-            </button>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="w-full max-w-2xl my-8">
+            <Card className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-950 border-yellow-500/30 w-full relative overflow-hidden">
+              {/* Efeito de brilho de fundo */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
+              
+              <div className="relative p-6 sm:p-8">
+                {/* Botão Fechar */}
+                <Button 
+                  onClick={() => setShowUpgrade(false)}
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-4 right-4 text-purple-300 hover:text-white hover:bg-purple-800/50 z-10"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
 
-            <div className="text-center mb-6">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center">
-                <Crown className="w-10 h-10 text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-2">UpNow Pro</h2>
-              <p className="text-purple-200">Desbloqueie todo o potencial do seu crescimento</p>
-            </div>
+                {/* Header do Modal */}
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center shadow-xl shadow-yellow-500/30">
+                    <Crown className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">UpNow Pro</h2>
+                  <p className="text-base sm:text-lg text-purple-200">Desbloqueie todo o potencial do seu crescimento</p>
+                </div>
 
-            <div className="space-y-3 mb-6">
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Inteligência emocional avançada com análises profundas</span>
-              </div>
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Reorganização automática ilimitada do seu dia</span>
-              </div>
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Biblioteca premium com 500+ afirmações personalizadas</span>
-              </div>
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Temas visuais exclusivos e personalizáveis</span>
-              </div>
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Conquistas especiais e gamificação avançada</span>
-              </div>
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Análises semanais completas com insights da IA</span>
-              </div>
-              <div className="flex items-start gap-3 text-purple-100">
-                <span className="text-cyan-400">✓</span>
-                <span>Suporte prioritário e atualizações exclusivas</span>
-              </div>
-            </div>
+                {/* Grid de Benefícios */}
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
+                  <div className="bg-slate-950/50 border border-cyan-500/30 rounded-xl p-3 sm:p-4 hover:border-cyan-500/50 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                        <Brain className="w-4 h-4 text-cyan-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">IA Emocional Avançada</h4>
+                        <p className="text-xs sm:text-sm text-purple-300">Análises profundas e personalizadas</p>
+                      </div>
+                    </div>
+                  </div>
 
-            <div className="bg-slate-950/50 rounded-xl p-6 mb-6 text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-4xl font-bold text-white">R$ 19,90</span>
-                <span className="text-purple-300">/mês</span>
+                  <div className="bg-slate-950/50 border border-purple-500/30 rounded-xl p-3 sm:p-4 hover:border-purple-500/50 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                        <Zap className="w-4 h-4 text-purple-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">Reorganização Ilimitada</h4>
+                        <p className="text-xs sm:text-sm text-purple-300">Otimize seu dia quantas vezes quiser</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950/50 border border-pink-500/30 rounded-xl p-3 sm:p-4 hover:border-pink-500/50 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center flex-shrink-0">
+                        <Heart className="w-4 h-4 text-pink-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">500+ Afirmações Premium</h4>
+                        <p className="text-xs sm:text-sm text-purple-300">Biblioteca exclusiva personalizada</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950/50 border border-yellow-500/30 rounded-xl p-3 sm:p-4 hover:border-yellow-500/50 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                        <Trophy className="w-4 h-4 text-yellow-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">Gamificação Avançada</h4>
+                        <p className="text-xs sm:text-sm text-purple-300">Conquistas e recompensas especiais</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950/50 border border-blue-500/30 rounded-xl p-3 sm:p-4 hover:border-blue-500/50 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="w-4 h-4 text-blue-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">Análises Semanais</h4>
+                        <p className="text-xs sm:text-sm text-purple-300">Insights completos com IA</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950/50 border border-green-500/30 rounded-xl p-3 sm:p-4 hover:border-green-500/50 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-4 h-4 text-green-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">Temas Exclusivos</h4>
+                        <p className="text-xs sm:text-sm text-purple-300">Personalize sua experiência</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Preço */}
+                <div className="bg-slate-950/70 border border-yellow-500/30 rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 text-center">
+                  <div className="flex items-baseline justify-center gap-2 mb-2">
+                    <span className="text-4xl sm:text-5xl font-bold text-white">R$ 19,90</span>
+                    <span className="text-lg sm:text-xl text-purple-300">/mês</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-purple-300 mb-3">Cancele quando quiser, sem compromisso</p>
+                  <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs sm:text-sm px-3 py-1">
+                    🎁 7 dias de teste grátis
+                  </Badge>
+                </div>
+
+                {/* Botões de Ação */}
+                <div className="space-y-3">
+                  <Button 
+                    onClick={handleAssinarPro}
+                    className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold text-base sm:text-lg py-5 sm:py-6 shadow-xl shadow-yellow-500/30 transition-all hover:scale-105"
+                  >
+                    <Crown className="w-5 h-5 mr-2" />
+                    Assinar UpNow Pro
+                  </Button>
+
+                  <Button 
+                    onClick={handleContinuarGratuito}
+                    variant="ghost"
+                    className="w-full text-purple-300 hover:text-white hover:bg-purple-800/30 py-5 sm:py-6"
+                  >
+                    Continuar com Plano Gratuito
+                  </Button>
+                </div>
+
+                <p className="text-xs text-center text-purple-400 mt-4">
+                  Sem cartão de crédito necessário para teste • Cancele a qualquer momento
+                </p>
               </div>
-              <p className="text-sm text-purple-300">Cancele quando quiser, sem compromisso</p>
-            </div>
-
-            <Button 
-              className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold text-lg py-6"
-            >
-              <Crown className="w-5 h-5 mr-2" />
-              Assinar UpNow Pro
-            </Button>
-
-            <p className="text-xs text-center text-purple-400 mt-4">
-              7 dias de teste grátis • Sem cartão de crédito necessário
-            </p>
-          </Card>
+            </Card>
+          </div>
         </div>
       )}
 
